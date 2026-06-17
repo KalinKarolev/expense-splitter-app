@@ -1,61 +1,99 @@
+const groupsList = document.getElementById('groupsList');
+const groupsEmpty = document.getElementById('groupsEmpty');
+const formMessage = document.getElementById('formMessage');
+
 async function loadGroups() {
-    const res = await fetch('/api/groups');
-    if (!res.ok) {
-        console.error('Failed to fetch groups', res.status);
-        return;
+    try {
+        const response = await fetch('/api/groups');
+
+        if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const groups = await response.json();
+        renderGroups(groups);
+    } catch (error) {
+        showMessage('Could not load groups. Please try again.', true);
+        console.error(error);
     }
-    const groups = await res.json();
-    const list = document.getElementById('groupsList');
-    const empty = document.getElementById('groupsEmpty');
-    list.innerHTML = '';
+}
+
+function renderGroups(groups) {
+    groupsList.innerHTML = '';
+
     if (!groups || groups.length === 0) {
-        empty.style.display = 'flex';
+        groupsEmpty.style.display = 'flex';
         return;
     }
-    empty.style.display = 'none';
-    groups.forEach(g => {
-        const li = document.createElement('li');
-        li.innerHTML = `<div class="g-name">${escapeHtml(g.name)}</div>` + (g.description ? `<div class="g-desc">${escapeHtml(g.description)}</div>` : '');
-        list.appendChild(li);
+
+    groupsEmpty.style.display = 'none';
+
+    groups.forEach(group => {
+        const item = document.createElement('li');
+        item.className = 'group-card';
+
+        const title = document.createElement('h3');
+        title.textContent = group.name;
+
+        const description = document.createElement('p');
+        description.textContent = group.description || 'No description added yet.';
+
+        const meta = document.createElement('span');
+        meta.className = 'group-meta';
+        meta.textContent = `Group #${group.id}`;
+
+        item.append(title, description, meta);
+        groupsList.appendChild(item);
     });
 }
 
-function escapeHtml(s) {
-    const div = document.createElement('div');
-    div.textContent = s || '';
-    return div.innerHTML;
+function showMessage(message, isError = false) {
+    formMessage.textContent = message;
+    formMessage.classList.toggle('error', isError);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadGroups();
-    
     const form = document.getElementById('createForm');
-    const refreshBtn = document.getElementById('refreshBtn');
-    
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', loadGroups);
-    }
+    const refreshButton = document.getElementById('refreshBtn');
+    const submitButton = form.querySelector('button[type="submit"]');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    loadGroups();
+
+    refreshButton.addEventListener('click', loadGroups);
+
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
+        showMessage('');
+
         const name = document.getElementById('name').value.trim();
         const description = document.getElementById('description').value.trim();
+
         if (!name) {
-            alert('Name is required');
+            showMessage('Group name is required.', true);
             return;
         }
-        const res = await fetch('/api/groups', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, description })
-        });
-        if (res.ok) {
-            document.getElementById('name').value = '';
-            document.getElementById('description').value = '';
-            loadGroups();
-        } else {
-            const text = await res.text();
-            alert('Failed to create group: ' + res.status + ' ' + text);
+
+        submitButton.disabled = true;
+
+        try {
+            const response = await fetch('/api/groups', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, description})
+            });
+
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
+
+            form.reset();
+            showMessage('Group created successfully.');
+            await loadGroups();
+        } catch (error) {
+            showMessage('Could not create the group. Please check the form and try again.', true);
+            console.error(error);
+        } finally {
+            submitButton.disabled = false;
         }
     });
 });

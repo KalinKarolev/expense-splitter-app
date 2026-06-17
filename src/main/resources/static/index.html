@@ -3,115 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <title>Expense Splitter</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <header class="site-header">
-    <div class="header-wrapper">
-        <div class="header-left">
-            <div class="brand"><img src="/images/logo.svg" alt="Expense Splitter logo" class="logo"> <span class="app-title">Expense Splitter</span></div>
-        </div>
-        <div class="header-right">
-            <div class="tagline">📋 Simple shared expense management</div>
+    <div class="shell header-content">
+        <a class="brand" href="/" aria-label="Expense Splitter home">
+            <span class="brand-mark">ES</span>
+            <span class="brand-name">Expense Splitter</span>
+        </a>
+        <div class="header-note">
+            <span class="note-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 6h8M8 12h8M8 18h8M5 6h.01M5 12h.01M5 18h.01"/></svg>
+            </span>
+            <span>Simple shared expense management</span>
         </div>
     </div>
 </header>
 
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-left">
-            <h1 class="hero-title">Split group expenses without confusion</h1>
-            <p class="hero-subtitle">Create groups, add members, record expenses and settle up easily.<br>Simple, clear and fair for trips, dinners, events and everyday life.</p>
-            <div class="workflow-steps">
-                <div class="workflow-item">
-                    <div class="workflow-icon">👥</div>
-                    <div class="workflow-num">1</div>
-                    <div class="workflow-title">Create group</div>
-                    <div class="workflow-desc">Start by creating a new group</div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">👥</div>
-                    <div class="workflow-num">2</div>
-                    <div class="workflow-title">Add members</div>
-                    <div class="workflow-desc">Invite people to your group</div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">💰</div>
-                    <div class="workflow-num">3</div>
-                    <div class="workflow-title">Add expenses</div>
-                    <div class="workflow-desc">Record who paid and for what</div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">📊</div>
-                    <div class="workflow-num">4</div>
-                    <div class="workflow-title">View balances</div>
-                    <div class="workflow-desc">See who owes whom and settle up</div>
-                </div>
+<section class="hero">
+    <div class="shell hero-layout">
+        <div class="hero-copy">
+            <h1>Split group expenses without confusion</h1>
+            <p>Create groups, add members, record expenses and settle up easily.<br>Simple, clear and fair for trips, dinners, events and everyday life.</p>
+
+            <div class="steps-panel" aria-label="How Expense Splitter works">
+                <article class="step">
+                    <span class="step-icon purple" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <div>
+                        <span class="step-number">1</span>
+                        <strong>Create group</strong>
+                        <p>Start by creating a new group</p>
+                    </div>
+                </article>
+                <article class="step">
+                    <span class="step-icon green" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <div>
+                        <span class="step-number">2</span>
+                        <strong>Add members</strong>
+                        <p>Invite people to your group</p>
+                    </div>
+                </article>
+                <article class="step">
+                    <span class="step-icon amber" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/><path d="M12 13v8"/></svg>
+                    </span>
+                    <div>
+                        <span class="step-number">3</span>
+                        <strong>Add expenses</strong>
+                        <p>Record who paid and for what</p>
+                    </div>
+                </article>
+                <article class="step">
+                    <span class="step-icon blue" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-6"/></svg>
+                    </span>
+                    <div>
+                        <span class="step-number">4</span>
+                        <strong>View balances</strong>
+                        <p>See who owes whom and settle up</p>
+                    </div>
+                </article>
             </div>
         </div>
-        <div class="hero-right">
-            <div class="hero-illustration">
-                <div class="illust-person person-1">👩</div>
-                <div class="illust-person person-2">👨</div>
-                <div class="illust-person person-3">👨</div>
-            </div>
+
+        <div class="hero-art" aria-hidden="true">
+            <svg viewBox="0 0 560 280" role="img">
+                <defs>
+                    <linearGradient id="shirtBlue" x1="0" x2="1">
+                        <stop offset="0" stop-color="#7168f2"/>
+                        <stop offset="1" stop-color="#4b5fd8"/>
+                    </linearGradient>
+                    <linearGradient id="shirtGreen" x1="0" x2="1">
+                        <stop offset="0" stop-color="#5fc9a4"/>
+                        <stop offset="1" stop-color="#3aaa86"/>
+                    </linearGradient>
+                    <linearGradient id="bubble" x1="0" x2="1">
+                        <stop offset="0" stop-color="#ffffff"/>
+                        <stop offset="1" stop-color="#eef0ff"/>
+                    </linearGradient>
+                </defs>
+                <path d="M52 242C84 104 164 72 252 102c86 30 122-54 206-8 62 34 68 105 45 148H52Z" fill="#eef1ff"/>
+                <path d="M14 244h532" stroke="#dfe3fb" stroke-width="4" stroke-linecap="round"/>
+                <g fill="#dee3fb">
+                    <circle cx="61" cy="71" r="10"/><circle cx="503" cy="72" r="8"/><circle cx="374" cy="38" r="7"/><circle cx="416" cy="126" r="6"/>
+                    <path d="M32 216c22-43 11-83-15-112 43 9 64 53 52 112Z"/>
+                    <path d="M508 216c22-37 30-70 14-104 31 18 47 54 26 104Z"/>
+                </g>
+                <g>
+                    <circle cx="162" cy="42" r="38" fill="url(#bubble)" stroke="#dfe3fb"/>
+                    <text x="162" y="58" text-anchor="middle" font-size="44" font-weight="800" fill="#7769e8">$</text>
+                    <circle cx="292" cy="30" r="35" fill="url(#bubble)" stroke="#dfe3fb"/>
+                    <path d="M292 10a20 20 0 1 1-19 27h19Z" fill="#7d74ec"/>
+                    <path d="M294 10v25h25A25 25 0 0 0 294 10Z" fill="#a7a0f6"/>
+                    <circle cx="414" cy="42" r="36" fill="url(#bubble)" stroke="#dfe3fb"/>
+                    <circle cx="404" cy="35" r="8" fill="#8177ed"/>
+                    <circle cx="426" cy="38" r="7" fill="#8177ed"/>
+                    <path d="M389 60c3-13 11-19 24-19s22 6 25 19" fill="none" stroke="#8177ed" stroke-width="6" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(78 92)">
+                    <path d="M65 15c-33 5-52 40-50 95h105c6-51-15-93-55-95Z" fill="#263274"/>
+                    <circle cx="76" cy="64" r="27" fill="#ffbd8f"/>
+                    <path d="M46 63c18-8 28-20 31-41 23 11 32 28 31 56-21 6-43 3-62-15Z" fill="#263274"/>
+                    <path d="M31 151c7-48 24-73 60-73s56 26 61 73H31Z" fill="url(#shirtBlue)"/>
+                    <path d="M112 97l21 44" stroke="#4c46c4" stroke-width="9" stroke-linecap="round"/>
+                    <rect x="119" y="90" width="29" height="52" rx="5" fill="#263274"/>
+                    <circle cx="133" cy="132" r="3" fill="#ffffff"/>
+                </g>
+                <g transform="translate(224 72)">
+                    <path d="M52 31c2-22 24-34 47-26 19 7 27 21 23 42-18 7-49 4-70-16Z" fill="#25306e"/>
+                    <circle cx="86" cy="72" r="28" fill="#ffbd8f"/>
+                    <path d="M58 54c21-4 38-15 48-31 15 12 20 29 15 54-23 7-45 0-63-23Z" fill="#25306e"/>
+                    <path d="M32 164c5-58 26-86 58-86s54 28 60 86H32Z" fill="url(#shirtBlue)"/>
+                    <rect x="45" y="100" width="93" height="72" rx="4" fill="#293879"/>
+                    <rect x="37" y="171" width="112" height="8" rx="4" fill="#5562d8"/>
+                </g>
+                <g transform="translate(398 97)">
+                    <path d="M18 40c3-25 25-39 52-31 22 7 32 28 27 56-27 4-53-3-79-25Z" fill="#25306e"/>
+                    <circle cx="62" cy="64" r="25" fill="#ffbd8f"/>
+                    <path d="M38 50c18-1 34-10 43-24 14 13 19 29 15 50-21 4-41-3-58-26Z" fill="#25306e"/>
+                    <path d="M11 148c7-48 25-72 55-72s51 24 58 72H11Z" fill="url(#shirtGreen)"/>
+                    <rect x="20" y="101" width="31" height="39" rx="4" fill="#5365d8"/>
+                    <path d="M82 99l21 44" stroke="#319674" stroke-width="8" stroke-linecap="round"/>
+                </g>
+            </svg>
         </div>
     </div>
 </section>
 
-<main class="container main-grid">
-    <aside class="card form-card">
-        <div class="card-header">
-            <span class="card-icon">📁</span>
-            <h2>Create Group</h2>
+<main class="shell app-grid">
+    <section class="panel create-panel" aria-labelledby="create-title">
+        <div class="panel-title">
+            <span class="title-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 13V5a2 2 0 0 1 2-2h6l2 3h4a2 2 0 0 1 2 2v5"/><path d="M7 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/><path d="M3 13h18"/></svg>
+            </span>
+            <h2 id="create-title">Create Group</h2>
         </div>
-        <p class="card-desc">Start by creating a group for a trip, dinner or event.</p>
+        <p class="panel-subtitle">Start by creating a group for a trip, dinner or event.</p>
+
         <form id="createForm" class="create-form">
-            <div class="form-group">
-                <label for="name">Group Name <span class="required">*</span></label>
-                <div class="input-with-icon">
-                    <span class="input-icon">👥</span>
-                    <input type="text" id="name" name="name" required placeholder="e.g. Mountain Trip">
-                </div>
+            <label for="name">Group Name <span>*</span></label>
+            <div class="field">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                <input id="name" name="name" type="text" required maxlength="120" placeholder="e.g. Mountain Trip" autocomplete="off">
             </div>
 
-            <div class="form-group">
-                <label for="description">Description (optional)</label>
-                <div class="input-with-icon">
-                    <span class="input-icon textarea-icon">📝</span>
-                    <textarea id="description" name="description" rows="3" placeholder="e.g. Hiking in the mountains"></textarea>
-                </div>
+            <label for="description">Description (optional)</label>
+            <div class="field textarea-field">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h12"/><path d="M4 17h10"/></svg>
+                <textarea id="description" name="description" rows="4" maxlength="500" placeholder="e.g. Hiking in the mountains"></textarea>
             </div>
 
-            <button type="submit" class="btn-primary"><span class="btn-icon">✓</span> Create Group</button>
-            <p class="form-hint">📍 You can always change the group details later.</p>
+            <button class="primary-button" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20"/><path d="m17 7-5-5-5 5"/><path d="M19 21H5"/></svg>
+                <span>Create Group</span>
+            </button>
+            <p id="formMessage" class="form-message" role="status"></p>
+            <p class="form-hint">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12c1 1 1 2 1 3h6c0-1 0-2 1-3a7 7 0 0 0-4-12Z"/></svg>
+                <span>You can always change the group details later.</span>
+            </p>
         </form>
-    </aside>
+    </section>
 
-    <section class="card list-card">
-        <div class="card-header-top">
-            <div class="card-header">
-                <span class="card-icon">📁</span>
-                <h2>Groups</h2>
+    <section class="panel groups-panel" aria-labelledby="groups-title">
+        <div class="groups-heading">
+            <div>
+                <div class="panel-title">
+                    <span class="title-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 13V5a2 2 0 0 1 2-2h6l2 3h4a2 2 0 0 1 2 2v5"/><path d="M7 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/><path d="M3 13h18"/></svg>
+                    </span>
+                    <h2 id="groups-title">Groups</h2>
+                </div>
+                <p class="panel-subtitle">All your expense groups.</p>
             </div>
-            <button id="refreshBtn" class="btn-refresh" title="Refresh groups">⟳ Refresh</button>
+            <button id="refreshBtn" class="refresh-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+                <span>Refresh</span>
+            </button>
         </div>
-        <p class="card-desc">All your expense groups.</p>
+
         <div id="groupsEmpty" class="empty-state">
-            <div class="empty-icon">👥</div>
-            <div class="empty-title">No groups yet</div>
-            <div class="empty-text">
-                Create your first group using the form on the left.<br>It only takes a few seconds!
+            <div class="empty-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
+            <h3>No groups yet</h3>
+            <p>Create your first group using the form on the left.<br>It only takes a few seconds!</p>
         </div>
         <ul id="groupsList" class="groups-list" aria-live="polite"></ul>
     </section>
 </main>
 
 <footer class="site-footer">
-    <div class="footer-left">Made with ❤️ for simple group expense management</div>
-    <div class="footer-right">Expense Splitter App</div>
+    <div class="shell footer-content">
+        <p>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+            <span>Made with <strong>love</strong> for simple group expense management</span>
+        </p>
+        <p>Expense Splitter App</p>
+    </div>
 </footer>
 
 <script src="/js/app.js"></script>
