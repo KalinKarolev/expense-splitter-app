@@ -2,10 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Expense Splitter App</title>
+    <title>Expense Splitter</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Expense Splitter App</h1>
-<p>The application is running successfully.</p>
+<header class="site-header">
+    <div class="header-wrapper">
+        <div class="header-left">
+            <div class="brand"><img src="/images/logo.svg" alt="Expense Splitter logo" class="logo"> <span class="app-title">Expense Splitter</span></div>
+        </div>
+        <div class="header-right">
+            <div class="tagline">📋 Simple shared expense management</div>
+        </div>
+    </div>
+</header>
+
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-left">
+            <h1 class="hero-title">Split group expenses without confusion</h1>
+            <p class="hero-subtitle">Create groups, add members, record expenses and settle up easily.<br>Simple, clear and fair for trips, dinners, events and everyday life.</p>
+            <div class="workflow-steps">
+                <div class="workflow-item">
+                    <div class="workflow-icon">👥</div>
+                    <div class="workflow-num">1</div>
+                    <div class="workflow-title">Create group</div>
+                    <div class="workflow-desc">Start by creating a new group</div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-icon">👥</div>
+                    <div class="workflow-num">2</div>
+                    <div class="workflow-title">Add members</div>
+                    <div class="workflow-desc">Invite people to your group</div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-icon">💰</div>
+                    <div class="workflow-num">3</div>
+                    <div class="workflow-title">Add expenses</div>
+                    <div class="workflow-desc">Record who paid and for what</div>
+                </div>
+                <div class="workflow-item">
+                    <div class="workflow-icon">📊</div>
+                    <div class="workflow-num">4</div>
+                    <div class="workflow-title">View balances</div>
+                    <div class="workflow-desc">See who owes whom and settle up</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-illustration">
+                <div class="illust-person person-1">👩</div>
+                <div class="illust-person person-2">👨</div>
+                <div class="illust-person person-3">👨</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container main-grid">
+    <aside class="card form-card">
+        <div class="card-header">
+            <span class="card-icon">📁</span>
+            <h2>Create Group</h2>
+        </div>
+        <p class="card-desc">Start by creating a group for a trip, dinner or event.</p>
+        <form id="createForm" class="create-form">
+            <div class="form-group">
+                <label for="name">Group Name <span class="required">*</span></label>
+                <div class="input-with-icon">
+                    <span class="input-icon">👥</span>
+                    <input type="text" id="name" name="name" required placeholder="e.g. Mountain Trip">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description (optional)</label>
+                <div class="input-with-icon">
+                    <span class="input-icon textarea-icon">📝</span>
+                    <textarea id="description" name="description" rows="3" placeholder="e.g. Hiking in the mountains"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary"><span class="btn-icon">✓</span> Create Group</button>
+            <p class="form-hint">📍 You can always change the group details later.</p>
+        </form>
+    </aside>
+
+    <section class="card list-card">
+        <div class="card-header-top">
+            <div class="card-header">
+                <span class="card-icon">📁</span>
+                <h2>Groups</h2>
+            </div>
+            <button id="refreshBtn" class="btn-refresh" title="Refresh groups">⟳ Refresh</button>
+        </div>
+        <p class="card-desc">All your expense groups.</p>
+        <div id="groupsEmpty" class="empty-state">
+            <div class="empty-icon">👥</div>
+            <div class="empty-title">No groups yet</div>
+            <div class="empty-text">
+                Create your first group using the form on the left.<br>It only takes a few seconds!
+            </div>
+        </div>
+        <ul id="groupsList" class="groups-list" aria-live="polite"></ul>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-left">Made with ❤️ for simple group expense management</div>
+    <div class="footer-right">Expense Splitter App</div>
+</footer>
+
+<script src="/js/app.js"></script>
 </body>
 </html>
