@@ -227,10 +227,10 @@ svg {
     justify-content: center;
 }
 
-.hero-art svg {
-    width: min(430px, 100%);
+.hero-art img {
+    width: min(433px, 100%);
     height: auto;
-    stroke: none;
+    display: block;
     filter: drop-shadow(0 20px 24px rgba(89, 96, 181, 0.10));
 }
 
