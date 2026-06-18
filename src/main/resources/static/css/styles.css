@@ -416,6 +416,21 @@ svg {
     margin-bottom: 24px;
 }
 
+.groups-content {
+    display: block;
+}
+
+.groups-content.has-selection {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.groups-list-column {
+    min-width: 0;
+}
+
 .refresh-button {
     min-height: 36px;
     display: inline-flex;
@@ -497,6 +512,8 @@ svg {
 
 .group-card {
     display: grid;
+    width: 100%;
+    text-align: left;
     gap: 9px;
     min-height: 128px;
     padding: 18px;
@@ -504,6 +521,26 @@ svg {
     border-radius: 8px;
     background: #ffffff;
     box-shadow: 0 8px 18px rgba(37, 48, 82, 0.06);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.group-card * {
+    cursor: pointer;
+}
+
+.group-card:hover,
+.group-card.selected {
+    border-color: #8d83f3;
+    box-shadow: 0 12px 24px rgba(103, 82, 242, 0.14);
+    transform: translateY(-1px);
+}
+
+.group-card.selected {
+    background: linear-gradient(145deg, #ffffff, #f8f7ff);
+    outline: 3px solid rgba(103, 82, 242, 0.16);
 }
 
 .group-card h3 {
@@ -523,6 +560,119 @@ svg {
     align-self: end;
     color: #7c88a5;
     font-size: 13px;
+}
+
+.group-details-panel {
+    min-width: 0;
+    padding-right: 22px;
+    border-right: 1px solid var(--soft-line);
+}
+
+.member-form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.member-form-row .field {
+    margin-bottom: 0;
+}
+
+.member-form-row .primary-button {
+    min-height: 46px;
+}
+
+.members-panel {
+    margin-top: 22px;
+    border: 1px solid #d8deeb;
+    border-radius: 8px;
+    background: #fbfcff;
+    padding: 18px;
+}
+
+.members-panel h3 {
+    margin: 0 0 14px;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.25;
+}
+
+.members-empty {
+    min-height: 96px;
+    display: grid;
+    place-items: center;
+    border: 1px dashed #cfd6e6;
+    border-radius: 8px;
+    color: #667195;
+    font-size: 14px;
+    text-align: center;
+    padding: 18px;
+}
+
+.members-list {
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.member-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #d8deeb;
+    border-radius: 7px;
+    background: #ffffff;
+}
+
+.member-card-details {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.member-card span {
+    min-width: 0;
+    color: var(--ink);
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.member-card small {
+    flex: 0 0 auto;
+    color: #7c88a5;
+    font-size: 12px;
+}
+
+.delete-member-button {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #f0c7d0;
+    border-radius: 7px;
+    background: #fff7f9;
+    color: #cf3150;
+    cursor: pointer;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.delete-member-button:hover {
+    border-color: #e29aaa;
+    background: #fff0f3;
+    box-shadow: 0 8px 18px rgba(207, 49, 80, 0.12);
+}
+
+.delete-member-button svg {
+    width: 17px;
+    height: 17px;
+    stroke-width: 2.2;
 }
 
 .site-footer {
@@ -562,8 +712,16 @@ svg {
 
 @media (max-width: 1100px) {
     .hero-layout,
-    .app-grid {
+    .app-grid,
+    .groups-content.has-selection {
         grid-template-columns: 1fr;
+    }
+
+    .group-details-panel {
+        padding-right: 0;
+        padding-bottom: 22px;
+        border-right: 0;
+        border-bottom: 1px solid var(--soft-line);
     }
 
     .hero-art {
@@ -621,6 +779,10 @@ svg {
     .refresh-button {
         width: 100%;
         justify-content: center;
+    }
+
+    .member-form-row {
+        grid-template-columns: 1fr;
     }
 }
 

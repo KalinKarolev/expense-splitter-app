@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Expense Splitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css?v=4">
 </head>
 <body>
 <header class="site-header">
@@ -130,14 +130,49 @@
             </button>
         </div>
 
-        <div id="groupsEmpty" class="empty-state">
-            <div class="empty-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="groups-content">
+            <aside id="groupDetails" class="group-details-panel" aria-labelledby="details-title" hidden>
+                <div class="panel-title">
+                    <span class="title-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                    </span>
+                    <h2 id="details-title">Group Details</h2>
+                </div>
+                <p id="selectedGroupText" class="panel-subtitle">Select a group to add and view members.</p>
+
+                <form id="memberForm" class="create-form member-form">
+                    <label for="memberName">Member Name <span>*</span></label>
+                    <div class="member-form-row">
+                        <div class="field">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input id="memberName" name="memberName" type="text" required maxlength="120" placeholder="e.g. Maria" autocomplete="off" disabled>
+                        </div>
+                        <button id="addMemberBtn" class="primary-button" type="submit" disabled>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                            <span>Add Member</span>
+                        </button>
+                    </div>
+                    <p id="memberMessage" class="form-message" role="status"></p>
+                </form>
+
+                <div class="members-panel" aria-labelledby="members-title">
+                    <h3 id="members-title">Members</h3>
+                    <div id="membersEmpty" class="members-empty">No group selected.</div>
+                    <ul id="membersList" class="members-list" aria-live="polite"></ul>
+                </div>
+            </aside>
+
+            <div class="groups-list-column">
+                <div id="groupsEmpty" class="empty-state">
+                    <div class="empty-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>No groups yet</h3>
+                    <p>Create your first group using the form on the left.<br>It only takes a few seconds!</p>
+                </div>
+                <ul id="groupsList" class="groups-list" aria-live="polite"></ul>
             </div>
-            <h3>No groups yet</h3>
-            <p>Create your first group using the form on the left.<br>It only takes a few seconds!</p>
         </div>
-        <ul id="groupsList" class="groups-list" aria-live="polite"></ul>
     </section>
 </main>
 
@@ -151,6 +186,6 @@
     </div>
 </footer>
 
-<script src="/js/app.js"></script>
+<script src="/js/app.js?v=4"></script>
 </body>
 </html>
