@@ -97,6 +97,14 @@ Use H2 for local development.
 
 Do not add database migration tools unless explicitly requested.
 
+## Additional Instruction Files
+
+Before creating or renaming Java classes, DTOs, services, repositories, controllers, methods, or REST endpoints, read:
+
+`docs/naming-conventions.md`
+
+Follow the naming rules from that file unless I explicitly request otherwise.
+
 ## Before Making Code Changes
 
 Before making code changes:

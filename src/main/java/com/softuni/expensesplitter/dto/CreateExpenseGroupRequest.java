@@ -2,14 +2,14 @@ package com.softuni.expensesplitter.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class GroupCreateDTO {
+public class CreateExpenseGroupRequest {
 
     @NotBlank
     private String name;
 
     private String description;
 
-    public GroupCreateDTO() {
+    public CreateExpenseGroupRequest() {
     }
 
     public String getName() {

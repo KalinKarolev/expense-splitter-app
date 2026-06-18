@@ -1,14 +1,14 @@
 package com.softuni.expensesplitter.dto;
 
-public class GroupViewDTO {
+public class ExpenseGroupResponse {
     private Long id;
     private String name;
     private String description;
 
-    public GroupViewDTO() {
+    public ExpenseGroupResponse() {
     }
 
-    public GroupViewDTO(Long id, String name, String description) {
+    public ExpenseGroupResponse(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
