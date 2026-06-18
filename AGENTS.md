@@ -99,6 +99,10 @@ Do not add database migration tools unless explicitly requested.
 
 ## Additional Instruction Files
 
+Always read and follow:
+
+`.github/general-instructions.md`
+
 Before creating or renaming Java classes, DTOs, services, repositories, controllers, methods, or REST endpoints, read:
 
 `docs/naming-conventions.md`
