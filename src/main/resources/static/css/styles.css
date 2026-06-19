@@ -357,7 +357,8 @@ svg {
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
     width: 100%;
     border: 1px solid #d8deeb;
     border-radius: 7px;
@@ -380,13 +381,20 @@ svg {
     padding: 15px 16px 15px 48px;
 }
 
+.field select {
+    height: 46px;
+    padding: 0 42px 0 48px;
+    appearance: none;
+}
+
 .field input::placeholder,
 .field textarea::placeholder {
     color: #75819f;
 }
 
 .field input:focus,
-.field textarea:focus {
+.field textarea:focus,
+.field select:focus {
     border-color: #8d83f3;
     box-shadow: 0 0 0 4px rgba(103, 82, 242, 0.12);
 }
@@ -648,6 +656,13 @@ svg {
     line-height: 1.25;
 }
 
+.members-panel h2 {
+    margin: 0 0 14px;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.25;
+}
+
 .members-empty {
     min-height: 96px;
     display: grid;
@@ -725,6 +740,99 @@ svg {
     stroke-width: 2.2;
 }
 
+.expenses-section,
+.balances-section,
+.settlements-section {
+    margin-top: 28px;
+    padding-top: 26px;
+    border-top: 1px solid var(--soft-line);
+}
+
+.expense-form {
+    margin-bottom: 22px;
+}
+
+.expense-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(150px, 0.8fr) minmax(180px, 1fr);
+    gap: 14px;
+    align-items: start;
+}
+
+.expenses-list,
+.balances-list,
+.settlements-list {
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.expense-card,
+.balance-card,
+.settlement-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 58px;
+    padding: 13px 15px;
+    border: 1px solid #d8deeb;
+    border-radius: 7px;
+    background: #ffffff;
+}
+
+.expense-card-details,
+.balance-card-details,
+.settlement-card-details {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.expense-card span,
+.balance-card span,
+.settlement-card span {
+    min-width: 0;
+    color: var(--ink);
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.expense-card small,
+.balance-card small,
+.settlement-card small {
+    color: #7c88a5;
+    font-size: 12px;
+}
+
+.expense-card strong,
+.settlement-card strong {
+    flex: 0 0 auto;
+    color: var(--green);
+    font-size: 16px;
+    font-weight: 850;
+}
+
+.balance-card strong {
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 850;
+}
+
+.balance-positive {
+    color: var(--green);
+}
+
+.balance-negative {
+    color: #cf3150;
+}
+
+.balance-zero {
+    color: #667195;
+}
+
 .site-footer {
     border-top: 1px solid var(--soft-line);
     background: rgba(255, 255, 255, 0.9);
@@ -764,6 +872,7 @@ svg {
     .hero-layout,
     .app-grid,
     .group-details-layout,
+    .expense-form-grid,
     .groups-content.has-selection {
         grid-template-columns: 1fr;
     }

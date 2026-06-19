@@ -109,6 +109,14 @@ Before creating or renaming Java classes, DTOs, services, repositories, controll
 
 Follow the naming rules from that file unless I explicitly request otherwise.
 
+## Business Rule Instructions
+
+Before creating or modifying balance calculation, settlement calculation, balance DTOs, settlement DTOs, or related tests, read:
+
+`docs/balance-settlement-rules.md`
+
+Follow these rules unless I explicitly request otherwise.
+
 ## Before Making Code Changes
 
 Before making code changes:

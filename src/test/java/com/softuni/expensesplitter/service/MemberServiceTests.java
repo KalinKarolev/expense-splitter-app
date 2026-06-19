@@ -4,6 +4,7 @@ import com.softuni.expensesplitter.dto.CreateMemberRequest;
 import com.softuni.expensesplitter.dto.MemberResponse;
 import com.softuni.expensesplitter.entity.ExpenseGroup;
 import com.softuni.expensesplitter.repository.ExpenseGroupRepository;
+import com.softuni.expensesplitter.repository.ExpenseRepository;
 import com.softuni.expensesplitter.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +29,12 @@ class MemberServiceTests {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private ExpenseRepository expenseRepository;
+
     @BeforeEach
     void setUp() {
+        expenseRepository.deleteAll();
         memberRepository.deleteAll();
         expenseGroupRepository.deleteAll();
     }
