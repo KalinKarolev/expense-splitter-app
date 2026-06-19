@@ -101,11 +101,11 @@ Do not add database migration tools unless explicitly requested.
 
 Always read and follow:
 
-`.github/general-instructions.md`
+`.github/instructions/general-instructions.md`
 
 Before creating or renaming Java classes, DTOs, services, repositories, controllers, methods, or REST endpoints, read:
 
-`docs/naming-conventions.md`
+`.github/instructions/naming-conventions.md`
 
 Follow the naming rules from that file unless I explicitly request otherwise.
 
@@ -113,7 +113,7 @@ Follow the naming rules from that file unless I explicitly request otherwise.
 
 Before creating or modifying balance calculation, settlement calculation, balance DTOs, settlement DTOs, or related tests, read:
 
-`docs/balance-settlement-rules.md`
+`.github/instructions/balance-settlement-rules.md`
 
 Follow these rules unless I explicitly request otherwise.
 
@@ -132,3 +132,9 @@ After making code changes:
 - explain how to run or manually test the change;
 - mention any assumptions or limitations;
 - run or suggest the relevant Maven test command when applicable.
+
+## Skills
+
+After making code changes, read and follow:
+
+`.github/skills/post-change-validation/SKILL.md`

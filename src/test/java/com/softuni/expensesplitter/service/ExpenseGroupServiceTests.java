@@ -2,6 +2,7 @@ package com.softuni.expensesplitter.service;
 
 import com.softuni.expensesplitter.dto.CreateExpenseGroupRequest;
 import com.softuni.expensesplitter.dto.ExpenseGroupResponse;
+import com.softuni.expensesplitter.dto.UpdateExpenseGroupRequest;
 import com.softuni.expensesplitter.repository.ExpenseGroupRepository;
 import com.softuni.expensesplitter.repository.ExpenseRepository;
 import com.softuni.expensesplitter.repository.MemberRepository;
@@ -87,9 +88,40 @@ class ExpenseGroupServiceTests {
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
+    @Test
+    void updateGroupChangesDescription() {
+        ExpenseGroupResponse created = expenseGroupService.createGroup(createGroupRequest("Trip", "Summer trip"));
+        UpdateExpenseGroupRequest request = updateGroupRequest("Updated trip description");
+
+        ExpenseGroupResponse response = expenseGroupService.updateGroup(created.getId(), request);
+
+        assertEquals(created.getId(), response.getId());
+        assertEquals("Trip", response.getName());
+        assertEquals("Updated trip description", response.getDescription());
+        assertEquals("Updated trip description", expenseGroupService.getGroupById(created.getId()).getDescription());
+    }
+
+    @Test
+    void updateGroupThrowsNotFoundForMissingGroup() {
+        UpdateExpenseGroupRequest request = updateGroupRequest("Updated trip description");
+
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> expenseGroupService.updateGroup(999L, request)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
     private CreateExpenseGroupRequest createGroupRequest(String name, String description) {
         CreateExpenseGroupRequest request = new CreateExpenseGroupRequest();
         request.setName(name);
+        request.setDescription(description);
+        return request;
+    }
+
+    private UpdateExpenseGroupRequest updateGroupRequest(String description) {
+        UpdateExpenseGroupRequest request = new UpdateExpenseGroupRequest();
         request.setDescription(description);
         return request;
     }

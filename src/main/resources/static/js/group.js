@@ -1,5 +1,11 @@
 const groupTitle = document.getElementById('groupTitle');
 const groupDescription = document.getElementById('groupDescription');
+const editDescriptionButton = document.getElementById('editDescriptionBtn');
+const descriptionForm = document.getElementById('descriptionForm');
+const groupDescriptionInput = document.getElementById('groupDescriptionInput');
+const saveDescriptionButton = document.getElementById('saveDescriptionBtn');
+const cancelDescriptionButton = document.getElementById('cancelDescriptionBtn');
+const descriptionMessage = document.getElementById('descriptionMessage');
 const memberForm = document.getElementById('memberForm');
 const memberNameInput = document.getElementById('memberName');
 const addMemberButton = document.getElementById('addMemberBtn');
@@ -24,8 +30,10 @@ const settlementsList = document.getElementById('settlementsList');
 
 let memberMessageTimeoutId = null;
 let expenseMessageTimeoutId = null;
+let descriptionMessageTimeoutId = null;
 let groupMembers = [];
 let groupExpenses = [];
+let currentGroupDescription = '';
 
 function getGroupIdFromPath() {
     const pathParts = window.location.pathname.split('/').filter(Boolean);
@@ -75,6 +83,27 @@ function clearExpenseMessageTimer() {
     }
 }
 
+function showDescriptionMessage(message, isError = false) {
+    clearDescriptionMessageTimer();
+    descriptionMessage.textContent = message;
+    descriptionMessage.classList.toggle('error', isError);
+}
+
+function showTimedDescriptionMessage(message) {
+    showDescriptionMessage(message);
+    descriptionMessageTimeoutId = window.setTimeout(() => {
+        descriptionMessage.textContent = '';
+        descriptionMessageTimeoutId = null;
+    }, 3000);
+}
+
+function clearDescriptionMessageTimer() {
+    if (descriptionMessageTimeoutId) {
+        window.clearTimeout(descriptionMessageTimeoutId);
+        descriptionMessageTimeoutId = null;
+    }
+}
+
 async function loadGroup(groupId) {
     try {
         const response = await fetch(`/api/groups/${groupId}`);
@@ -85,12 +114,15 @@ async function loadGroup(groupId) {
 
         const group = await response.json();
         groupTitle.textContent = group.name;
-        groupDescription.textContent = group.description || 'No description added yet.';
+        currentGroupDescription = group.description || '';
+        groupDescription.textContent = currentGroupDescription || 'No description added yet.';
         memberNameInput.disabled = false;
         addMemberButton.disabled = false;
+        editDescriptionButton.disabled = false;
     } catch (error) {
         groupTitle.textContent = 'Group not found';
         groupDescription.textContent = 'Return to the groups page and select an existing group.';
+        editDescriptionButton.disabled = true;
         showMemberMessage('Could not load this group.', true);
         console.error(error);
     }
@@ -343,7 +375,7 @@ function renderSettlements(settlements) {
 }
 
 function formatAmount(amount) {
-    return Number(amount).toFixed(2);
+    return `\u20ac${Number(amount).toFixed(2)}`;
 }
 
 function formatBalanceMeaning(memberName, amount) {
@@ -403,6 +435,52 @@ async function addMember(groupId) {
         console.error(error);
     } finally {
         addMemberButton.disabled = false;
+    }
+}
+
+function openDescriptionEditor() {
+    groupDescriptionInput.value = currentGroupDescription;
+    descriptionForm.hidden = false;
+    editDescriptionButton.hidden = true;
+    showDescriptionMessage('');
+    groupDescriptionInput.focus();
+}
+
+function closeDescriptionEditor() {
+    descriptionForm.hidden = true;
+    editDescriptionButton.hidden = false;
+    groupDescriptionInput.value = currentGroupDescription;
+    showDescriptionMessage('');
+}
+
+async function updateGroupDescription(groupId) {
+    const description = groupDescriptionInput.value.trim();
+    saveDescriptionButton.disabled = true;
+    cancelDescriptionButton.disabled = true;
+
+    try {
+        const response = await fetch(`/api/groups/${groupId}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({description})
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+        const group = await response.json();
+        currentGroupDescription = group.description || '';
+        groupDescription.textContent = currentGroupDescription || 'No description added yet.';
+        descriptionForm.hidden = true;
+        editDescriptionButton.hidden = false;
+        showTimedDescriptionMessage('Description updated successfully.');
+    } catch (error) {
+        showDescriptionMessage('Could not update the description. Please try again.', true);
+        console.error(error);
+    } finally {
+        saveDescriptionButton.disabled = false;
+        cancelDescriptionButton.disabled = false;
     }
 }
 
@@ -504,6 +582,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     expenseForm.addEventListener('submit', event => {
         event.preventDefault();
         addExpense(groupId);
+    });
+
+    editDescriptionButton.addEventListener('click', openDescriptionEditor);
+
+    cancelDescriptionButton.addEventListener('click', closeDescriptionEditor);
+
+    descriptionForm.addEventListener('submit', event => {
+        event.preventDefault();
+        updateGroupDescription(groupId);
     });
 
     membersList.addEventListener('click', event => {

@@ -2,6 +2,7 @@ package com.softuni.expensesplitter.service;
 
 import com.softuni.expensesplitter.dto.CreateExpenseGroupRequest;
 import com.softuni.expensesplitter.dto.ExpenseGroupResponse;
+import com.softuni.expensesplitter.dto.UpdateExpenseGroupRequest;
 import com.softuni.expensesplitter.entity.ExpenseGroup;
 import com.softuni.expensesplitter.repository.ExpenseGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,15 @@ public class ExpenseGroupService {
         ExpenseGroup g = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found"));
         return toView(g);
+    }
+
+    public ExpenseGroupResponse updateGroup(Long id, UpdateExpenseGroupRequest dto) {
+        ExpenseGroup group = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Group not found"));
+
+        group.setDescription(dto.getDescription());
+        ExpenseGroup saved = repository.save(group);
+        return toView(saved);
     }
 
     private ExpenseGroupResponse toView(ExpenseGroup g) {

@@ -2,6 +2,7 @@ package com.softuni.expensesplitter.controller;
 
 import com.softuni.expensesplitter.dto.CreateExpenseGroupRequest;
 import com.softuni.expensesplitter.dto.ExpenseGroupResponse;
+import com.softuni.expensesplitter.dto.UpdateExpenseGroupRequest;
 import com.softuni.expensesplitter.service.ExpenseGroupService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class ExpenseGroupController {
     @GetMapping("/{id}")
     public ExpenseGroupResponse getGroupById(@PathVariable Long id) {
         return expenseGroupService.getGroupById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public ExpenseGroupResponse updateGroup(@PathVariable Long id, @RequestBody UpdateExpenseGroupRequest dto) {
+        return expenseGroupService.updateGroup(id, dto);
     }
 }

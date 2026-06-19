@@ -1,6 +1,7 @@
 const groupsList = document.getElementById('groupsList');
 const groupsEmpty = document.getElementById('groupsEmpty');
 const formMessage = document.getElementById('formMessage');
+let formMessageTimeoutId = null;
 
 async function loadGroups() {
     try {
@@ -52,8 +53,24 @@ function renderGroups(groups) {
 }
 
 function showMessage(message, isError = false) {
+    clearMessageTimer();
     formMessage.textContent = message;
     formMessage.classList.toggle('error', isError);
+}
+
+function showTimedMessage(message) {
+    showMessage(message);
+    formMessageTimeoutId = window.setTimeout(() => {
+        formMessage.textContent = '';
+        formMessageTimeoutId = null;
+    }, 3000);
+}
+
+function clearMessageTimer() {
+    if (formMessageTimeoutId) {
+        window.clearTimeout(formMessageTimeoutId);
+        formMessageTimeoutId = null;
+    }
 }
 
 function openGroup(groupId) {
@@ -62,12 +79,9 @@ function openGroup(groupId) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('createForm');
-    const refreshButton = document.getElementById('refreshBtn');
     const submitButton = form.querySelector('button[type="submit"]');
 
     loadGroups();
-
-    refreshButton.addEventListener('click', loadGroups);
 
     groupsList.addEventListener('click', event => {
         const card = event.target.closest('.group-card');
@@ -103,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             form.reset();
-            showMessage('Group created successfully.');
+            showTimedMessage('Group created successfully.');
             await loadGroups();
         } catch (error) {
             showMessage('Could not create the group. Please check the form and try again.', true);
