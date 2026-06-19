@@ -102,6 +102,32 @@ svg {
     white-space: nowrap;
 }
 
+.back-link {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 14px;
+    border: 1px solid #d8deeb;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #263052;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 750;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.back-link:hover {
+    border-color: #bfc7db;
+    box-shadow: var(--small-shadow);
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+}
+
 .note-icon {
     width: 36px;
     height: 36px;
@@ -241,6 +267,29 @@ svg {
     padding: 30px 0 50px;
 }
 
+.group-page {
+    padding: 30px 0 50px;
+}
+
+.group-page-panel {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.group-page-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.group-details-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 26px;
+    align-items: start;
+}
+
 .panel {
     background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--line);
@@ -255,6 +304,7 @@ svg {
     gap: 14px;
 }
 
+.panel-title h1,
 .panel-title h2 {
     margin: 0;
     color: var(--ink);
@@ -713,6 +763,7 @@ svg {
 @media (max-width: 1100px) {
     .hero-layout,
     .app-grid,
+    .group-details-layout,
     .groups-content.has-selection {
         grid-template-columns: 1fr;
     }
