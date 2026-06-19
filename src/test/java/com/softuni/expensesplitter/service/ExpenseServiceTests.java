@@ -91,12 +91,36 @@ class ExpenseServiceTests {
     }
 
     @Test
+    void addExpenseToGroupThrowsBadRequestWhenPayerDoesNotExist() {
+        ExpenseGroup group = expenseGroupRepository.save(new ExpenseGroup("Trip", "Summer trip"));
+        CreateExpenseRequest request = createExpenseRequest("Taxi", new BigDecimal("18.00"), 999L);
+
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> expenseService.addExpenseToGroup(group.getId(), request)
+        );
+
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertTrue(expenseRepository.findByExpenseGroupId(group.getId()).isEmpty());
+    }
+
+    @Test
     void addExpenseToGroupThrowsNotFoundForMissingGroup() {
         CreateExpenseRequest request = createExpenseRequest("Taxi", new BigDecimal("18.00"), 1L);
 
         ResponseStatusException exception = assertThrows(
                 ResponseStatusException.class,
                 () -> expenseService.addExpenseToGroup(999L, request)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+    void getExpensesByGroupIdThrowsNotFoundForMissingGroup() {
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> expenseService.getExpensesByGroupId(999L)
         );
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());

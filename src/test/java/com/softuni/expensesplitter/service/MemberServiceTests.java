@@ -78,6 +78,16 @@ class MemberServiceTests {
     }
 
     @Test
+    void getMembersByGroupIdThrowsNotFoundForMissingGroup() {
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> memberService.getMembersByGroupId(999L)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
     void removeMemberFromGroupDeletesMemberFromSelectedGroup() {
         ExpenseGroup group = expenseGroupRepository.save(new ExpenseGroup("Trip", "Summer trip"));
         MemberResponse member = memberService.addMemberToGroup(group.getId(), createMemberRequest("Maria"));
@@ -101,6 +111,28 @@ class MemberServiceTests {
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         assertTrue(memberRepository.existsById(member.getId()));
+    }
+
+    @Test
+    void removeMemberFromGroupThrowsNotFoundForMissingGroup() {
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> memberService.removeMemberFromGroup(999L, 1L)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+    void removeMemberFromGroupThrowsNotFoundForMissingMember() {
+        ExpenseGroup group = expenseGroupRepository.save(new ExpenseGroup("Trip", "Summer trip"));
+
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> memberService.removeMemberFromGroup(group.getId(), 999L)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
 
     private CreateMemberRequest createMemberRequest(String name) {

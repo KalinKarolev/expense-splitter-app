@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -112,6 +114,56 @@ class BalanceServiceTests {
         assertEquals(2, settlements.size());
         assertSettlement(settlements.get(0), ivan, maria, "10.00");
         assertSettlement(settlements.get(1), petar, maria, "40.00");
+    }
+
+    @Test
+    void getBalancesByGroupIdThrowsNotFoundForMissingGroup() {
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> balanceService.getBalancesByGroupId(999L)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+    void getSettlementsByGroupIdThrowsNotFoundForMissingGroup() {
+        ResponseStatusException exception = assertThrows(
+                ResponseStatusException.class,
+                () -> balanceService.getSettlementsByGroupId(999L)
+        );
+
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+    void getBalancesByGroupIdRoundsEqualShareToTwoDecimals() {
+        ExpenseGroup group = expenseGroupRepository.save(new ExpenseGroup("Coffee", "Morning coffee"));
+        Member maria = memberRepository.save(new Member("Maria", group));
+        Member ivan = memberRepository.save(new Member("Ivan", group));
+        Member petar = memberRepository.save(new Member("Petar", group));
+        expenseRepository.save(new Expense("Coffee", new BigDecimal("100.00"), group, maria));
+
+        Map<Long, MemberBalanceResponse> balances = balancesByMemberId(balanceService.getBalancesByGroupId(group.getId()));
+
+        assertBalance(balances.get(maria.getId()), maria, "100.00", "33.33", "66.67");
+        assertBalance(balances.get(ivan.getId()), ivan, "0.00", "33.33", "-33.33");
+        assertBalance(balances.get(petar.getId()), petar, "0.00", "33.33", "-33.33");
+    }
+
+    @Test
+    void getSettlementsByGroupIdReturnsEmptyListWhenEveryoneIsSettled() {
+        ExpenseGroup group = expenseGroupRepository.save(new ExpenseGroup("Dinner", "Team dinner"));
+        Member maria = memberRepository.save(new Member("Maria", group));
+        Member ivan = memberRepository.save(new Member("Ivan", group));
+        Member petar = memberRepository.save(new Member("Petar", group));
+        expenseRepository.save(new Expense("Maria share", new BigDecimal("60.00"), group, maria));
+        expenseRepository.save(new Expense("Ivan share", new BigDecimal("60.00"), group, ivan));
+        expenseRepository.save(new Expense("Petar share", new BigDecimal("60.00"), group, petar));
+
+        List<SettlementResponse> settlements = balanceService.getSettlementsByGroupId(group.getId());
+
+        assertTrue(settlements.isEmpty());
     }
 
     private Map<Long, MemberBalanceResponse> balancesByMemberId(List<MemberBalanceResponse> balances) {
